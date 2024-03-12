@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "./pkg/pb/user";
+
+service User {
+  rpc UserSignUp(UserSignUpRequest) returns (UserSignUpResponse) {};
+  rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {};
+}
+message UserSignUpRequest{
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string password = 4;
+    string phone = 5;
+}
+message UserDetails  {
+	uint64 id=1;
+    string firstname=2;
+    string lastname=3;
+    string email=4;
+    string phone=5;
+}
+message UserSignUpResponse  {
+    int64 status=1;
+	UserDetails  userDetails=2;
+	string AccessToken=3; 
+	string RefreshToken =4;
+}
+message UserLoginRequest{
+    string email=1;
+    string password=2;
+}
+message UserLoginResponse{
+    int64 status=1;
+	UserDetails  userDetails=2;
+	string AccessToken=3; 
+	string RefreshToken =4;
+}
