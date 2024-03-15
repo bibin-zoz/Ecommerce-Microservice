@@ -1,0 +1,107 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "./pkg/pb/product";
+
+service Product{
+    rpc AddProduct(AddProductRequest) returns (AddProductResponse) {};
+    rpc ListProducts(ListProductRequest) returns (ListProductResponse) {};
+    rpc UpdateProducts(UpdateProductRequest) returns (UpdateProductResponse) {}; 
+    rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse) {};
+    rpc GetQuantityFromProductID(GetQuantityFromProductIDRequest)returns(GetQuantityFromProductIDResponse){};
+    rpc GetPriceofProductFromID(GetPriceofProductFromIDRequest)returns(GetPriceofProductFromIDResponse){};
+    rpc ProductStockMinus(ProductStockMinusRequest) returns(ProductStockMinusReponse){};
+    rpc CheckProduct(CheckProductRequest) returns (CheckProductResponse){};
+
+}
+
+message CheckProductRequest{
+    int64 ProductID=1;
+}
+message CheckProductResponse{
+    bool bool=1;
+    string Error=2;
+}
+message AddProductRequest{
+    string Name=1;
+    string Description=2;
+    int64 CategoryID=3;
+    int64 Size=4;
+    int64 Stock=5;
+    float Price=6;
+}
+
+message AddProductResponse{
+    int64 ID=1;
+    string Name=2;
+    string Description=3;
+    int64 CategoryID=4;
+    int64 Size=5;
+    int64 Stock=6;
+    float Price=7;
+    string Error=8;
+}
+
+message ListProductRequest{
+    int64 page=1;
+    int64 count=2;
+}
+
+message ProductDetails{
+    int64 ID=1;
+    string Name=2;
+    string Description=3;
+    int64 CategoryID=4;
+    int64 Size=5;
+    int64 Stock=6;
+    float Price=7;
+    string ProductStatus=8;
+    string Error=9;
+}
+
+message ListProductResponse{
+    repeated ProductDetails details=1;
+}
+
+message UpdateProductRequest{
+    int64 ID=1;
+    int64 Stock=2;
+}
+
+message UpdateProductResponse{
+    int64 ID=1;
+    int64 Stock=2;
+    string Error=3; 
+}
+
+message DeleteProductRequest{
+    int64 ID=1;
+}
+
+message DeleteProductResponse{
+    string Error=1;
+}
+
+message GetQuantityFromProductIDRequest{
+    int64 ID=1;
+}
+message GetQuantityFromProductIDResponse{
+    int64 Quantity=1;
+    string Error=2;
+}
+message GetPriceofProductFromIDRequest{
+    int64 ID=1;
+}
+message GetPriceofProductFromIDResponse{
+    int64 Price=1;
+    string Error=2;
+}
+
+message ProductStockMinusRequest{
+    int64 ID=1;
+    int64 stock=2;
+}
+message ProductStockMinusReponse{
+    string Error=1;
+}

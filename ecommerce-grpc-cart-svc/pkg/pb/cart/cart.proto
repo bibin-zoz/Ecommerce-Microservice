@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "./pkg/pb/cart";
+
+service Cart {
+  rpc AddToCart(AddToCartRequest) returns (AddToCartResponse) {};
+  rpc GetCart(GetCartRequest) returns (GetCartResponse) {};
+  rpc GetAllItemsFromCart(GetAllItemsFromCartRequest) returns (GetAllItemsFromCartResponse){};
+  rpc DoesCartExist(DoesCartExistRequest) returns (DoesCartExistReponse){};
+  rpc TotalAmountInCart(TotalAmountInCartRequest) returns (TotalAmountInCartResponse){};
+  rpc UpdateCartAfterOrder(UpdateCartAfterOrderRequest) returns (UpdateCartAfterOrderResponse){};
+}
+message UpdateCartAfterOrderRequest{
+    int64 userID=1;
+    int64 productID=2;
+    int64 quantity=3;
+}
+message UpdateCartAfterOrderResponse{
+    string Error=1;
+}
+message TotalAmountInCartRequest{
+    int64 userID=1;
+}
+message TotalAmountInCartResponse{
+    float data=1;
+    string Error=2;
+}
+message DoesCartExistRequest{
+    int64 userID=1;
+}
+message DoesCartExistReponse{
+    bool data=1;
+    string Error=2;
+}
+message AddToCartRequest{
+    int64 productID=1;
+    int64 userID=2;
+    int64 quantity=3;
+
+}
+message CartDetails{
+    int64 productID=1; 
+    float Quantity=2;  
+    float totalPrice=3; 
+}
+message AddToCartResponse{
+    float price=1;
+    repeated CartDetails cart=2;
+    string Error=3;
+}
+message GetCartRequest{
+    int64 userID=1;
+}
+message GetCartResponse{
+    float price=1;
+    repeated CartDetails cart=2;
+    string Error=3;
+}
+message GetAllItemsFromCartRequest{
+    int64 userID=1;
+}
+message GetAllItemsFromCartResponse{
+   repeated CartDetails Cart=1; 
+   string Error=2;
+}
